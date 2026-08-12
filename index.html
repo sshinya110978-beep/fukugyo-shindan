@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>副業タイプ診断「はじめの一歩」</title>
+<meta name="description" content="「向いてる副業」より「明日やること」がわかる診断ツール。全16問・約3分、登録不要。8タイプ判定＋最初の7日間プランつき。">
+<meta name="theme-color" content="#2F6BFF">
+<!-- SNSシェア用（画像は用意でき次第 og:image を追加してください） -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="副業タイプ診断「はじめの一歩」">
+<meta property="og:description" content="「向いてる副業」より「明日やること」がわかる診断ツール。全16問・約3分、登録不要。8タイプ判定＋最初の7日間プランつき。">
+<meta property="og:site_name" content="副業タイプ診断「はじめの一歩」">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="副業タイプ診断「はじめの一歩」">
+<meta name="twitter:description" content="「向いてる副業」より「明日やること」がわかる診断ツール。全16問・約3分、登録不要。">
+<style>
+:root{
+  --bg:#FAF9F7; --surface:#fff; --text:#1C2333; --sub:#5B6376; --border:#E4E1DB;
+  --accent:#2F6BFF; --accent2:#FF8A3D; --soft:#F1F4FB;
+  --radius:14px; --shadow:0 2px 12px rgba(28,35,51,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root{ --bg:#14171F; --surface:#1D212B; --text:#EDF0F5; --sub:#A2AAB9; --border:#2E3440;
+         --accent:#6E9BFF; --accent2:#FFA463; --soft:#232A38; --shadow:0 2px 12px rgba(0,0,0,.3); }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text); line-height:1.75;
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
+  -webkit-font-smoothing:antialiased; padding:0 16px env(safe-area-inset-bottom);
+}
+.wrap{max-width:640px;margin:0 auto;padding:24px 0 64px}
+button{font:inherit;color:inherit;cursor:pointer;border:none;background:none}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+
+/* --- 共通ボタン --- */
+.btn{display:block;width:100%;background:var(--accent);color:#fff;font-weight:700;font-size:17px;
+  padding:16px;border-radius:var(--radius);text-align:center;transition:transform .12s,opacity .12s;
+  box-shadow:0 6px 18px rgba(47,107,255,.22)}
+.btn:active{transform:scale(.985);opacity:.9}
+.btn .bs{display:block;font-size:12.5px;font-weight:600;opacity:.88;margin-top:4px;letter-spacing:.01em}
+.btn.sub{background:var(--surface);color:var(--text);border:1px solid var(--border);
+  font-size:15px;font-weight:600;padding:14px;box-shadow:none}
+.resume{margin-top:10px}
+
+/* --- LP --- */
+.hero{padding:26px 0 0}
+.badge{display:inline-flex;align-items:center;gap:7px;background:var(--soft);color:var(--accent);
+  border-radius:999px;padding:6px 14px;font-size:12.5px;font-weight:800;letter-spacing:.02em}
+.badge i{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:blink 2.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.hero h1{font-size:28px;font-weight:800;line-height:1.5;margin-top:15px;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .name{margin-top:16px;font-size:12px;color:var(--sub);letter-spacing:.1em}
+.hero .name b{display:block;font-size:18px;color:var(--text);letter-spacing:0;margin-top:1px}
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 0}
+.pill{background:var(--soft);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:700;color:var(--sub)}
+
+/* 診断画面のミニプレビュー（＝ツールだと一目でわかる部分） */
+.mock{margin:22px 0 8px;padding:17px;pointer-events:none}
+.mock .mh{display:flex;justify-content:space-between;font-size:11.5px;color:var(--sub);margin-bottom:7px;font-weight:600}
+.mock .mbar{height:4px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:15px}
+.mock .mbar i{display:block;height:100%;width:31%;background:var(--accent);border-radius:99px}
+.mock .mq{font-size:15.5px;font-weight:800;line-height:1.55;margin-bottom:11px}
+.mock .mo{border:1.5px solid var(--border);border-radius:10px;padding:10px 13px;
+  font-size:13px;color:var(--sub);margin-bottom:7px;line-height:1.5}
+.mock .mo:last-child{margin-bottom:0}
+.mock .mo.on{border-color:var(--accent);background:var(--soft);color:var(--text);font-weight:700;position:relative}
+.mock .mo.on::after{content:"タップ";position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  font-size:10px;font-weight:800;color:#fff;background:var(--accent);border-radius:99px;padding:2px 8px}
+.cap{text-align:center;font-size:12px;color:var(--sub);margin:8px 0 20px}
+
+/* LPセクション見出し */
+.lph{font-size:16.5px;font-weight:800;margin:36px 0 12px;display:flex;align-items:center;gap:8px}
+.lph::before{content:"";width:4px;height:17px;background:var(--accent);border-radius:3px}
+.lph.hot::before{background:var(--accent2)}
+
+/* 3ステップ */
+.steps{display:flex;flex-direction:column;gap:9px}
+.step{display:flex;gap:13px;align-items:flex-start;padding:14px 16px}
+.step .sn{flex:none;width:27px;height:27px;border-radius:9px;background:var(--accent);color:#fff;
+  font-size:13px;font-weight:800;display:grid;place-items:center}
+.step.hot .sn{background:var(--accent2)}
+.step .st{font-size:15px;font-weight:800;line-height:1.5}
+.step .sd{font-size:13px;color:var(--sub);margin-top:3px;line-height:1.65}
+
+/* 3軸ミニ図 */
+.axmini{padding:13px 15px}
+.axrow{display:flex;align-items:center;gap:7px;padding:7px 0;border-bottom:1px dashed var(--border)}
+.axrow:last-child{border-bottom:none}
+.axrow span{flex:none;width:48px;color:var(--sub);font-size:11.5px;font-weight:700}
+.axrow b{flex:1;text-align:center;background:var(--soft);border-radius:8px;padding:6px 2px;font-size:12.5px;font-weight:700}
+.axrow i{flex:none;font-style:normal;color:var(--sub);font-size:13px}
+
+/* 8タイプ（伏せた状態） */
+.tg{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:10px}
+.tg div{aspect-ratio:1;display:grid;place-items:center;background:var(--soft);
+  border:1px solid var(--border);border-radius:11px;font-size:19px;font-weight:800;color:var(--sub);opacity:.75}
+
+/* 向いている人 */
+.lp-note li{list-style:none;color:var(--text);font-size:14.5px;padding:11px 0 11px 26px;position:relative;
+  border-bottom:1px solid var(--border);line-height:1.6}
+.lp-note li:last-child{border-bottom:none}
+.lp-note li::before{content:"✓";position:absolute;left:2px;top:11px;color:var(--accent);font-weight:800}
+
+/* 追従CTA */
+.sticky{position:fixed;left:0;right:0;bottom:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  background:var(--bg);border-top:1px solid var(--border);transform:translateY(130%);
+  transition:transform .28s ease;z-index:8}
+.sticky.on{transform:none}
+.sticky .btn{max-width:608px;margin:0 auto;padding:14px;font-size:16px}
+body.hassticky .wrap{padding-bottom:120px}
+
+/* --- 設問 --- */
+.qhead{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--sub);padding:8px 0}
+.back{padding:6px 10px;margin-left:-10px;border-radius:8px}
+.back:disabled{opacity:.25;cursor:default}
+.bar{height:5px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:34px}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s ease}
+.qtext{font-size:21px;font-weight:700;line-height:1.6;margin-bottom:24px;letter-spacing:-.01em}
+.opts{display:flex;flex-direction:column;gap:11px}
+.opt{width:100%;text-align:left;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);
+  padding:16px 18px;font-size:15.5px;font-weight:500;line-height:1.6;min-height:56px;transition:all .14s}
+.opt:hover{border-color:var(--accent)}
+.opt.on{border-color:var(--accent);background:var(--soft)}
+.opt.multi{padding-left:48px;position:relative}
+.opt.multi::before{content:"";position:absolute;left:18px;top:50%;transform:translateY(-50%);
+  width:19px;height:19px;border:1.5px solid var(--border);border-radius:5px}
+.opt.multi.on::before{background:var(--accent);border-color:var(--accent)}
+.opt.multi.on::after{content:"";position:absolute;left:24px;top:calc(50% - 5px);width:5px;height:9px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(43deg)}
+
+/* --- 中間 / 演出 --- */
+.mid{padding:60px 0 0;text-align:center}
+.mid h2{font-size:26px;font-weight:800;margin-bottom:14px}
+.mid p{color:var(--sub);font-size:15px;margin-bottom:30px}
+.loading{padding:130px 0;text-align:center;color:var(--sub);font-size:15.5px}
+.spin{width:34px;height:34px;margin:0 auto 22px;border:3px solid var(--border);border-top-color:var(--accent);
+  border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.fade{animation:fi .22s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* --- 結果 --- */
+.rhead{text-align:center;padding:34px 0 30px}
+.rhead .lead{font-size:14px;color:var(--sub);letter-spacing:.1em}
+.rhead .tname{font-size:33px;font-weight:800;line-height:1.35;margin:10px 0 12px;letter-spacing:-.02em}
+.rhead .tname span{color:var(--accent)}
+.rhead .tcatch{font-size:16px;color:var(--sub);font-weight:600}
+section{margin-top:30px}
+h2.sec{font-size:19px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:9px;letter-spacing:-.01em}
+h2.sec::before{content:"";width:4px;height:19px;background:var(--accent);border-radius:3px}
+h2.sec.hot::before{background:var(--accent2)}
+.axis{padding:16px 18px;margin-bottom:10px}
+.axis .top{display:flex;justify-content:space-between;font-size:12.5px;color:var(--sub);margin-bottom:7px}
+.axis .top b{color:var(--text);font-size:13px}
+.track{position:relative;height:7px;background:var(--soft);border-radius:99px;border:1px solid var(--border)}
+.track i{position:absolute;top:50%;width:15px;height:15px;border-radius:50%;background:var(--accent);
+  transform:translate(-50%,-50%);border:2.5px solid var(--surface);box-shadow:0 1px 4px rgba(0,0,0,.18)}
+.axis .val{margin-top:9px;font-size:13.5px;font-weight:700}
+.tight{display:inline-block;margin-left:6px;font-size:11px;font-weight:700;color:var(--accent2);
+  background:var(--soft);padding:2px 8px;border-radius:99px}
+.about{padding:18px;font-size:15px}
+.about p+p{margin-top:8px}
+.job{padding:18px;margin-bottom:11px}
+.job .t{font-size:16.5px;font-weight:800;margin-bottom:11px;display:flex;gap:9px;align-items:flex-start}
+.job .t i{flex:none;width:23px;height:23px;border-radius:7px;background:var(--accent);color:#fff;font-style:normal;
+  font-size:13px;font-weight:800;display:grid;place-items:center;margin-top:2px}
+.job dl{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:14px}
+.job dt{color:var(--sub);white-space:nowrap}
+.job dd{font-weight:600}
+.job .ai{margin-top:11px;padding-top:11px;border-top:1px dashed var(--border);font-size:13.5px;color:var(--sub)}
+.job .ai b{color:var(--accent2)}
+.job .warn{margin-top:9px;font-size:12.5px;color:var(--accent2);font-weight:600}
+.plan{overflow:hidden}
+.day{display:flex;gap:13px;padding:15px 17px;border-bottom:1px solid var(--border);align-items:flex-start}
+.day:last-child{border-bottom:none}
+.day .n{flex:none;width:46px;font-size:12px;font-weight:800;color:var(--accent2);padding-top:2px}
+.day .b{flex:1;font-size:14.5px;line-height:1.65}
+.day .m{display:block;font-size:12px;color:var(--sub);margin-top:3px}
+.day input{flex:none;width:20px;height:20px;margin-top:2px;accent-color:var(--accent)}
+.day.done .b{opacity:.45;text-decoration:line-through}
+.goal{margin-top:11px;padding:14px 17px;background:var(--soft);border-radius:var(--radius);font-size:14.5px;font-weight:700}
+.goal span{color:var(--accent2)}
+.tips{padding:6px 18px}
+.tips li{list-style:none;padding:13px 0 13px 22px;border-bottom:1px solid var(--border);font-size:14.5px;position:relative}
+.tips li:last-child{border-bottom:none}
+.tips li::before{content:"!";position:absolute;left:0;top:13px;width:16px;height:16px;border-radius:50%;
+  background:var(--accent2);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center}
+.tips.no li::before{content:"×";background:var(--sub)}
+.tips li b{display:block;margin-bottom:2px}
+.tips li em{font-style:normal;color:var(--sub);font-size:13.5px}
+.alt{padding:18px;text-align:center}
+.alt .k{font-size:13px;color:var(--sub)}
+.alt .v{font-size:19px;font-weight:800;margin:6px 0 4px}
+.alt .d{font-size:13.5px;color:var(--sub)}
+.acts{display:flex;flex-direction:column;gap:10px;margin-top:30px}
+.disc{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--sub);line-height:1.85}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--text);color:var(--bg);
+  padding:11px 22px;border-radius:99px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .25s;z-index:9}
+.toast.on{opacity:1}
+@media print{
+  body{background:#fff} .acts,.disc,.alt,.bar,.qhead{display:none}
+  .card{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   副業タイプ診断「はじめの一歩」 v1.0 (prototype)
+   設計: 02_診断ロジック設計.md / 03_設問リスト.md / 04_結果コンテンツ_8タイプ.md
+   ============================================================ */
+
+/* ---------- 設問（Q1-Q12 判定用 / axis: 0=稼ぎ方 1=得意技 2=出し方） ---------- */
+const QUESTIONS = [
+{axis:0,text:'3ヶ月後、こうなっていたら嬉しい。',options:[
+  ['毎月コンスタントに3万円の入金がある',2],
+  ['少額でも「勝手に売れる仕組み」が1つできている',-2],
+  ['金額は小さくていい。とにかく稼いだ実績がほしい',1],
+  ['数字はまだでいい。記事や作品が10個たまっている',-1]]},
+{axis:0,text:'週末に、まるまる5時間できたとしたら？',options:[
+  ['案件を探して、片っ端から応募する',2],
+  ['自分のコンテンツをひたすら作りためる',-2],
+  ['すぐ終わる作業を、いくつか片付ける',1],
+  ['半年後に効きそうな勉強や仕込みをする',-1]]},
+{axis:0,text:'「その頑張り、3ヶ月ムダになるかも」と言われたら？',options:[
+  ['それは困る。やった分の対価はほしい',2],
+  ['当たれば大きいなら、試してみたい',-2],
+  ['少しは我慢するけど、途中で手応えは見たい',1],
+  ['別に気にならない。積み上げるのは好き',-1]]},
+{axis:0,text:'報酬の受け取り方、どちらが好み？',options:[
+  ['納品して、その分きっちり支払われる',2],
+  ['何もしない月でも、数百円ずつ入ってくる',-2],
+  ['締切があったほうが動ける',1],
+  ['締切がないほうが気楽でいい',-1]]},
+{axis:1,text:'気づいたら時間が溶けているのは？',options:[
+  ['文章・画像・動画をいじっているとき',2],
+  ['人の相談に乗っているとき',-2],
+  ['情報を調べて、整理しているとき',1],
+  ['誰かに何かを説明・紹介しているとき',-1]]},
+{axis:1,text:'職場や身のまわりで、頼まれがちなのは？',options:[
+  ['資料づくり・まとめ役',2],
+  ['相談役・人の間に入る役',-2],
+  ['細かいチェックや修正',1],
+  ['新しく入った人の面倒を見る役',-1]]},
+{axis:1,text:'5時間ぶっ通しでやるなら、どっちがラク？',options:[
+  ['一人で黙々と手を動かす5時間',2],
+  ['ずっと人と話している5時間',-2],
+  ['基本は一人。でも時々質問できる環境',1],
+  ['少人数と、ゆっくり話す',-1]]},
+{axis:1,text:'「ありがとう」と言われて、一番うれしいのは？',options:[
+  ['作ったものの出来をほめられたとき',2],
+  ['「悩みが軽くなった」と言われたとき',-2],
+  ['「早い」「正確」と言われたとき',1],
+  ['「話してよかった」と言われたとき',-1]]},
+{axis:2,text:'顔出し・実名について、正直なところ？',options:[
+  ['全然OK。むしろ出していきたい',2],
+  ['絶対に出したくない',-2],
+  ['声だけ・イラストアイコンならOK',1],
+  ['できれば伏せておきたい',-1]]},
+{axis:2,text:'SNSで発信することについて。',options:[
+  ['毎日投稿できる。反応がくるのが楽しみ',2],
+  ['考えただけで気が重い',-2],
+  ['内容によってはやれると思う',1],
+  ['基本は見る専でいたい',-1]]},
+{axis:2,text:'副業をしていることが、まわりに知られたら？',options:[
+  ['特に問題ない。むしろ自分から言える',2],
+  ['それは避けたい',-2],
+  ['自分からは言わないけど、バレても平気',1],
+  ['できれば知られたくない',-1]]},
+{axis:2,text:'選ばれるなら、どっちがいい？',options:[
+  ['「あなたにお願いしたい」と指名されたい',2],
+  ['「品質と価格が合うから」で選ばれたい',-2],
+  ['どちらかといえば、指名されたい',1],
+  ['どちらかといえば、中身で選ばれたい',-1]]},
+];
+
+/* ---------- 条件設問（Q13-Q16 判定には使わない） ---------- */
+const CONDITIONS = [
+{key:'hours',text:'副業に使える時間は、週にどれくらい？',options:[
+  ['週3時間以内（すきま時間だけ）',3],['週4〜7時間（1日1時間くらい）',7],
+  ['週8〜14時間（平日＋週末）',14],['週15時間以上（がっつり取れる）',20]]},
+{key:'goal',text:'まず目指したい金額は？',options:[
+  ['月1〜3万円（お小遣いがほしい）','small'],['月5〜10万円（生活の足しにしたい）','mid'],
+  ['月20万円以上（いずれ独立も視野に）','large'],['まだ決めていない','unknown']]},
+{key:'budget',text:'最初にかけられる金額は？',options:[
+  ['0円（今あるスマホ・PCだけで）',0],['1万円まで',10000],
+  ['5万円まで',50000],['それ以上でも大丈夫',100000]]},
+{key:'skills',multi:true,text:'いま持っている武器は？（あてはまるもの全部）',options:[
+  ['文章を書くのが苦じゃない','writing'],['デザイン・画像編集ができる','design'],
+  ['動画編集ができる','video'],['プログラミングができる','code'],
+  ['話す・教えるのが得意','speak'],['仕事の専門知識がある','expertise'],
+  ['特にない（そこも含めて知りたい）','none']]},
+];
+
+const AXES = [
+  {name:'稼ぎ方',pos:'フロー型',neg:'ストック型',posHint:'すぐ換金',negHint:'積み上げ'},
+  {name:'得意技',pos:'制作型',neg:'対人型',posHint:'モノを作る',negHint:'人に向き合う'},
+  {name:'出し方',pos:'表に出る',neg:'裏方',posHint:'名前を出す',negHint:'匿名で'},
+];
+
+const GOAL_MSG = {
+  small:'月1〜3万円なら、このタイプでも現実的に届きやすいラインです。まずはここを取りにいきましょう！',
+  mid:'月5〜10万円を狙うなら、「単価を上げる」か「本数を増やす」か、どちらかの工夫が必要になります。',
+  large:'月20万円以上を目指すなら、時間の切り売りだけでは届きにくいので、ストック側も併走させるのがおすすめです。',
+  unknown:'金額が決まっていないうちは、まず「初めての1円」を取ることをゴールに置くと動きやすくなります。',
+};
+
+/* ---------- 8タイプ ---------- */
+const TYPES = {
+FMU:{no:1,name:'職人型ワーカー',catch:'静かに手を動かして、確実に換金する人',
+ about:['一人で黙々と作業する時間が、いちばん落ち着く。','やった分だけきちんと支払われる形が性に合っていて、名前を出す必要は感じていない。','派手さはないけれど、副業でいちばん早く「1円目」に届きやすいタイプです！'],
+ jobs:[
+  {t:'Webライター',first:'2週間〜1ヶ月',price:'文字単価0.5〜2円／記事3,000〜15,000円',need:'PC・ネット環境のみ',ai:'構成づくり・リサーチ・下書き',tags:['writing'],budget:0,easy:true},
+  {t:'動画編集（切り抜き・ショート）',first:'1〜2ヶ月',price:'1本1,500〜8,000円',need:'PC・編集ソフト（無料版から可）',ai:'文字起こし・テロップ案の生成',tags:['video'],budget:0},
+  {t:'データ入力・リサーチ代行',first:'1〜2週間',price:'時給換算800〜1,500円',need:'PC・表計算の基本操作',ai:'情報の整理・表形式への変換',tags:[],budget:0,easy:true}],
+ plan:[['クラウドソーシングサイトに登録（2社）。プロフィール欄を埋める',40],
+  ['実績ゼロでも書けるサンプル記事を1本書く（1,500字程度）',60],
+  ['サンプルをもう1本。ジャンルを変えて2本目',60],
+  ['案件を20件ブックマーク。単価と条件を一覧にメモ',40],
+  ['提案文のテンプレを1つ作る（自己紹介＋できること＋納期）',40],
+  ['5件応募する（テンプレを案件ごとに1文だけ書き換え）',60],
+  ['さらに5件応募。返信が来ていたら即レス',60]],
+ goal:'応募10件・返信待ちの状態。低単価でも「最初の1件」を取り切ることを優先！',
+ pitfalls:[['応募数が足りない','最初は通過率が低いので、5件で判断せず30件までは淡々と出す'],
+  ['単価にこだわりすぎる','1件目は「実績を買う」つもりで。2件目から上げていく'],
+  ['完璧主義でサンプルが完成しない','60点で出して、フィードバックで直すほうが早いです']],
+ avoid:[['YouTube・顔出しSNS','表に出るのが負担になりやすく、続けるコストが高くなりがちです'],
+  ['ブログ（収益化まで）','無収入期間が長く、「やった分もらえる」感覚と噛み合いにくいです']],
+ alt:'SMU'},
+
+FMO:{no:2,name:'看板クリエイター',catch:'作品と名前を、セットで売る人',
+ about:['作るのが好きで、しかもそれを見てもらうのも好き。','「これ作ったの自分です」と言えるほうがやる気が出るタイプ。','実績が名前に貯まっていくので、続けるほど単価が上がりやすいのが強みです！'],
+ jobs:[
+  {t:'SNS運用代行・投稿クリエイティブ制作',first:'1〜2ヶ月',price:'月2〜10万円／社',need:'デザインツール（無料版から可）・SNSアカウント',ai:'投稿ネタ出し・キャッチコピー案',tags:['design','writing','video'],budget:0},
+  {t:'デザイン受託（バナー・サムネ・資料）',first:'3週間〜1ヶ月',price:'1件2,000〜20,000円',need:'デザインツール・ポートフォリオ',ai:'ラフ案の量産・配色の検討',tags:['design'],budget:0,easy:true},
+  {t:'ハンドメイド・自作グッズ販売',first:'1〜2ヶ月',price:'1点1,000〜5,000円',need:'材料費・販売プラットフォーム',ai:'商品説明文・撮影構図の検討',tags:[],budget:10000}],
+ plan:[['作品置き場を作る（SNSアカウント or 無料ポートフォリオサイト）',40],
+  ['過去作 or 練習作を3点アップ。1点ずつ「意図」を短く添える',60],
+  ['架空の依頼を想定した作品を1点。実案件と同じ条件で',60],
+  ['プロフィール整備（何を作れる人か・依頼方法を明記）',30],
+  ['同ジャンルの人を20人フォロー。市場の相場感をメモ',40],
+  ['募集案件に3件応募（作品リンク付き）',60],
+  ['作品を1点追加＋知人に「作りましょうか？」と1人声かけ',60]],
+ goal:'見せられる作品5点＋応募3件。1件目は知人経由でもOK！',
+ pitfalls:[['ポートフォリオが完成するまで営業しない','3点あれば動き出せます'],
+  ['フォロワー数を気にしすぎる','受注に必要なのは「作品」であって数字ではないことが多いです'],
+  ['単価を言えない','先に自分の料金表を作っておくと、聞かれたときに固まりません']],
+ avoid:[['データ入力・単純作業','「自分が作った」感が残らず、モチベーションが続きにくいです'],
+  ['完全匿名の受注のみ','名前が資産になる強みを、まるごと捨てることになります']],
+ alt:'SMO'},
+
+FPU:{no:3,name:'縁の下のサポーター',catch:'人の困りごとを、静かに引き受ける人',
+ about:['人の役に立つのは好き。でも目立ちたいわけじゃない。','段取りを整えたり、抜けを拾ったりするのが自然にできるタイプ。','「いてくれて助かる」で継続契約につながりやすいのが最大の強みです！'],
+ jobs:[
+  {t:'オンライン秘書・事務代行',first:'3週間〜1.5ヶ月',price:'時給1,000〜2,000円／月3〜10万円',need:'PC・チャットツール',ai:'メール下書き・スケジュール整理',tags:['expertise'],budget:0,easy:true},
+  {t:'カスタマーサポート代行（チャット）',first:'2週間〜1ヶ月',price:'時給1,000〜1,600円',need:'PC・安定した作業時間帯',ai:'返信テンプレの作成',tags:[],budget:0,easy:true},
+  {t:'文字起こし・議事録作成',first:'1〜2週間',price:'1件1,500〜8,000円',need:'PC・AI文字起こしツール',ai:'一次書き起こし・要約',tags:['writing'],budget:0,easy:true}],
+ plan:[['クラウドソーシング＋オンライン秘書系サービスに登録',40],
+  ['「できることリスト」を作る（本業でやっている作業を20個書き出す）',40],
+  ['そのうち需要がありそうな5つを選び、プロフィールに反映',40],
+  ['対応可能な曜日・時間帯を明記（ここを書くと信頼されやすいです）',20],
+  ['AI文字起こしツールを1つ試す（自分の会議録音などで練習）',60],
+  ['5件応募。「対応可能時間」と「連絡の早さ」を前面に',60],
+  ['さらに5件応募＋返信対応',60]],
+ goal:'応募10件。このタイプは「レスポンスの速さ」が決め手になりやすいです！',
+ pitfalls:[['「自分にできることがない」と思い込む','本業の事務作業は、そのまま商品になります'],
+  ['安請け合いして時間を食う','契約前に「対応範囲」と「1日の上限時間」を決めておく'],
+  ['単価が上がらない','3ヶ月継続したら値上げ交渉を1回する、と最初から決めておく']],
+ avoid:[['SNSインフルエンサー系','目立つこと自体が負担になりやすいです'],
+  ['完全に一人で完結する制作物系','人と関わる手応えがないと、張り合いが出にくい傾向があります']],
+ alt:'SPU'},
+
+FPO:{no:4,name:'伴走コーチ',catch:'目の前の一人を、前に進ませる人',
+ about:['人の話を聞いて、整理して、背中を押すのが得意。','自分の名前で信頼を集めることに抵抗がない。','単価をいちばん上げやすいタイプでもあります！'],
+ jobs:[
+  {t:'オンライン家庭教師・スクール講師',first:'2週間〜1ヶ月',price:'時給1,500〜4,000円',need:'PC・カメラ・静かな環境',ai:'教材づくり・進捗レポート作成',tags:['speak','expertise'],budget:0,easy:true},
+  {t:'コーチング・相談セッション',first:'1〜2ヶ月',price:'1回3,000〜15,000円',need:'実績の言語化・予約ツール',ai:'質問リスト設計・振り返り文の作成',tags:['speak'],budget:0},
+  {t:'スキル講座・ワークショップ開催',first:'2〜3ヶ月',price:'1回3,000〜20,000円／人',need:'教える内容の体系化',ai:'カリキュラム設計・スライド下書き',tags:['speak','expertise'],budget:10000}],
+ plan:[['「誰の、何を、どこまで」を1行で書く（例：初めての転職活動を、書類通過まで）',40],
+  ['自分の実績・経験を10個書き出し、上の1行を裏づける3つを選ぶ',40],
+  ['60分セッションの流れを作る（導入10／ヒアリング20／整理20／宿題10）',60],
+  ['講師系プラットフォームに1〜2つ登録、またはSNSで告知文を用意',60],
+  ['知人に無料モニターを2人お願いする',30],
+  ['モニターセッションを1回実施。録画または録音して振り返る',90],
+  ['感想をもらい、それを載せた告知文を完成させる。有料の受付を開始',60]],
+ goal:'無料モニター1件完了＋感想1件＋有料の受付開始。感想が1つあるだけで、申し込みのハードルは大きく下がります！',
+ pitfalls:[['資格がないと教えられないと思い込む','「相手より半歩先」で十分に価値が出ます'],
+  ['範囲を広げすぎる','「何でも相談OK」は選ばれにくいので、対象を絞る'],
+  ['無料モニターのまま止まる','3人目からは有料、と最初に決めておく']],
+ avoid:[['データ入力・単純作業','単価が合わず、得意技を全く使えません'],
+  ['匿名前提の受注仕事','信頼が名前に貯まらないので、強みが活きにくいです']],
+ alt:'SPO'},
+
+SMU:{no:5,name:'仕組みビルダー',catch:'寝てる間も動く仕組みを、コツコツ組む人',
+ about:['すぐお金にならなくても、積み上がっていく実感があれば動ける。','一人作業が得意で、名前を出す気はない。','時間の切り売りから、いちばん遠いところに行けるタイプです！'],
+ jobs:[
+  {t:'特化型ブログ・情報サイト',first:'4〜8ヶ月',price:'月0円〜数万円（積み上げ次第）',need:'ドメイン・サーバー（月1,000円前後）',ai:'構成案・リサーチ・下書き',tags:['writing'],budget:10000},
+  {t:'素材販売（写真・イラスト・音源・テンプレ）',first:'2〜4ヶ月',price:'1点数十円〜数千円×点数',need:'制作ツール・販売サイト登録',ai:'素材のバリエーション量産',tags:['design','code'],budget:0,easy:true},
+  {t:'電子書籍出版（ペンネーム）',first:'2〜4ヶ月',price:'1冊あたり月数百〜数万円',need:'執筆時間・表紙（外注 or AI生成）',ai:'目次づくり・下書き・表紙案',tags:['writing','expertise'],budget:0,easy:true}],
+ plan:[['テーマを3つ候補出し（自分が3ヶ月以上調べ続けられるもの）',40],
+  ['各テーマで検索して、先行者の数と内容を確認。1つに絞る',60],
+  ['器を用意（ブログ開設 or 販売サイト登録）',60],
+  ['作るものを30個リストアップ（記事タイトル30本／素材30点など）',60],
+  ['1本目を公開する（完璧じゃなくてOK）',90],
+  ['2本目を公開',90],
+  ['3本目を公開＋「毎週◯本」のペースを決めてカレンダーに入れる',90]],
+ goal:'公開3本＋今後30本分のネタリスト。「続けられる仕組み」を先に作るのがコツです！',
+ pitfalls:[['1本目に時間をかけすぎる','最初の数本は誰にも読まれないので、練習と割り切る'],
+  ['3ヶ月目の無風に耐えられない','あらかじめ「3ヶ月は反応なし」と想定しておく'],
+  ['テーマをコロコロ変える','積み上げが分散して、いちばんもったいないパターンです']],
+ avoid:[['締切のある受注仕事','自分のペースを崩されるとストレスになりやすいです'],
+  ['対人セッション系','得意技と噛み合わず、消耗しがちです']],
+ alt:'FMU'},
+
+SMO:{no:6,name:'発信クリエイター',catch:'自分の視点を、コンテンツに変える人',
+ about:['作るのも好き、見てもらうのも好き、積み上がるのも好き。','時間はかかるけれど、当たったときの伸び方がいちばん大きいタイプ。','「あなたが言うから読む」という状態を作れるのが強みです！'],
+ jobs:[
+  {t:'note・有料記事',first:'1〜3ヶ月',price:'1本500〜3,000円×本数',need:'書く時間のみ',ai:'ネタ出し・構成・推敲',tags:['writing','expertise'],budget:0,easy:true},
+  {t:'YouTube・ショート動画',first:'4〜10ヶ月',price:'収益化後 月0円〜数万円',need:'撮影機材（スマホ可）・編集ソフト',ai:'台本の下書き・サムネ案',tags:['video','speak'],budget:0},
+  {t:'テンプレート・ノウハウ商品の販売',first:'2〜4ヶ月',price:'1点1,000〜10,000円',need:'制作ツール・販売プラットフォーム',ai:'テンプレの試作と量産',tags:['design','code','writing'],budget:0,easy:true}],
+ plan:[['発信テーマを1行で決める（誰に・何を・どんな立場から）',40],
+  ['発信の場を1つ決めて開設。プロフィールを書く',40],
+  ['ネタを30個書き出す（自分が過去に悩んで解決したこと中心）',60],
+  ['1本目を公開',90],
+  ['2本目を公開＋SNSで告知',90],
+  ['同ジャンルの発信者を20人リサーチ。伸びている投稿の型をメモ',60],
+  ['3本目を公開＋「週◯本」の投稿ペースを固定',90]],
+ goal:'公開3本＋ネタ30個＋投稿ペースの決定。最初の30本は「型を探す実験」と考えると続けやすいです！',
+ pitfalls:[['反応が来ないと止まる','最初の10本はほぼ無風。ここで止まる人が本当に多いです'],
+  ['場を増やしすぎる','まずは1つに絞る。慣れてから横展開する'],
+  ['売るものがないまま発信し続ける','3ヶ月目までに、有料商品を1つ用意しておく']],
+ avoid:[['データ入力・単純作業','自分の視点を出せず、強みが眠ったままになります'],
+  ['完全匿名の受注業務','発信が資産になる強みを使えません']],
+ alt:'FMO'},
+
+SPU:{no:7,name:'匿名メンター',catch:'経験を教材に変えて、名前を出さずに届ける人',
+ about:['人の悩みに答えるのは好き。でも顔と名前は出したくない。','自分が乗り越えた経験を、誰かの近道に変えられるタイプ。','「顔出しなしでも人に教えられる」と知ると、選択肢が一気に広がります！'],
+ jobs:[
+  {t:'電子書籍出版（体験談・ノウハウ／ペンネーム）',first:'2〜4ヶ月',price:'1冊あたり月数百〜数万円',need:'執筆時間・表紙',ai:'目次づくり・体験談の構造化・表紙生成',tags:['writing','expertise'],budget:0,easy:true},
+  {t:'オンライン講座（画面録画・顔出しなし）',first:'3〜6ヶ月',price:'1講座1,000〜10,000円×受講者数',need:'画面録画ソフト・マイク',ai:'カリキュラム設計・スライド下書き',tags:['speak','expertise'],budget:10000},
+  {t:'悩み相談・電話相談サービス（匿名）',first:'2週間〜1ヶ月',price:'1分100〜200円／1件1,000〜5,000円',need:'静かな環境・プラットフォーム登録',ai:'よくある相談の型を整理',tags:['speak'],budget:0,easy:true}],
+ plan:[['自分が過去に「本気で悩んで、抜け出したこと」を10個書き出す',40],
+  ['そのうち検索されていそうなものを1つ選ぶ',40],
+  ['当時の自分に向けた目次を作る（10〜15項目）',60],
+  ['ペンネームを決める。本業と結びつかない名前で',20],
+  ['本文を書き始める（1日3項目ペース）',90],
+  ['本文の続き＋表紙案を用意',90],
+  ['残りを書き上げ、公開手順を確認。公開日をカレンダーに入れる',90]],
+ goal:'目次完成＋本文6〜9割＋公開日の確定。1冊目は薄くてOK、「出し切る」体験が2冊目の速度を決めます！',
+ pitfalls:[['自分の経験は特別じゃないと思う','抜け出した本人には当たり前でも、渦中の人には価値があります'],
+  ['完璧な1冊を目指す','1冊目より3冊目のほうが売れやすいので、まず出す'],
+  ['匿名だと信用されないと思う','中身が具体的なら、名前がなくても届きます']],
+ avoid:[['顔出し前提のSNS・YouTube','出したくない気持ちが、そのままブレーキになります'],
+  ['黙々とした制作単価仕事','人の役に立つ手応えが薄く、続けにくい傾向があります']],
+ alt:'FPU'},
+
+SPO:{no:8,name:'コミュニティ主宰',catch:'人が集まる場をつくって、育てる人',
+ about:['人と関わるのが好きで、名前も出せる。しかも1対1より1対多が向いている。','場を作って、そこに人が集まる状態を育てるのが得意なタイプ。','時間あたりの収益を、いちばん大きく伸ばせる可能性があります！'],
+ jobs:[
+  {t:'オンライン講座・スクール運営',first:'3〜6ヶ月',price:'1講座5,000〜50,000円×受講者数',need:'カリキュラム・配信環境',ai:'カリキュラム設計・個別フィードバック',tags:['speak','expertise'],budget:10000},
+  {t:'オンラインサロン・会員制コミュニティ',first:'4〜8ヶ月',price:'月額1,000〜5,000円×会員数',need:'発信基盤・運営プラットフォーム',ai:'運営マニュアル・投稿ネタの供給',tags:['speak'],budget:10000},
+  {t:'セミナー・イベント開催',first:'1〜3ヶ月',price:'1回3,000〜20,000円×参加者数',need:'集客導線・会場 or 配信ツール',ai:'告知文・当日資料の作成',tags:['speak','expertise'],budget:0,easy:true}],
+ plan:[['「誰が集まる場か」を1行で書く（例：3ヶ月で副業を始めたい会社員）',40],
+  ['その人たちが困っていることを20個書き出す',40],
+  ['上位3つを解決する90分セミナーの構成を作る',90],
+  ['発信基盤を整える（SNS or note のプロフィールと固定投稿）',60],
+  ['無料セミナーの告知を出す（定員5名・日程は10日後）',60],
+  ['告知を広げる。関連コミュニティや知人に個別で声かけ',60],
+  ['資料を作りながら、申込者に事前アンケートを送る',90]],
+ goal:'無料セミナーの募集開始＋申込1件以上。いきなりサロンを作らず、小さく試すのが最短ルートです！',
+ pitfalls:[['最初からサロンを作る','集客基盤がないまま箱だけ作ると、静かな部屋ができます'],
+  ['無料のまま長く続ける','3回目からは有料、と先に決めておく'],
+  ['一人で全部やろうとする','運営が重くなったら、早めに手伝いを入れる']],
+ avoid:[['データ入力・単純作業','単価も低く、得意技を全く使いません'],
+  ['完全に一人で完結する制作系','人が集まる手応えがなく、張り合いが出にくいです']],
+ alt:'FPO'},
+};
+
+/* ============================ 状態 ============================ */
+const KEY='fs_state_v1';
+let S = {answers:[], cond:{}, step:-1};   // step: -1=LP, 0..11=Q, 12=中間, 13..16=条件, 99=結果
+const app = document.getElementById('app');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||'null'); }catch(e){ return null; } }
+function toast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('on');
+  clearTimeout(t._id); t._id=setTimeout(()=>t.classList.remove('on'),1900);
+}
+
+/* ============================ 診断ロジック ============================ */
+function diagnose(){
+  const axes=[0,0,0];
+  QUESTIONS.forEach((q,i)=>{ const a=S.answers[i]; if(a!=null) axes[q.axis]+=q.options[a][1]; });
+  return finalize(axes);
+}
+function finalize(axes){
+  const code = (axes[0]>=0?'F':'S') + (axes[1]>=0?'M':'P') + (axes[2]>=0?'O':'U');
+  const weak = axes.map((v,i)=>({i,abs:Math.abs(v)})).sort((a,b)=>a.abs-b.abs)[0];
+  const flip = {F:'S',S:'F',M:'P',P:'M',O:'U',U:'O'};
+  const alt = code.split('').map((c,i)=> i===weak.i ? flip[c] : c).join('');
+  return {code, axes, altCode:alt, weakAxis:weak.i, tight:weak.abs<=2};
+}
+/* 条件による並び替え（skills一致 +10 / 初心者向け +15 / 予算オーバー -20） */
+function rankJobs(jobs, cond){
+  const skills = cond.skills||[], budget = cond.budget??100000;
+  return jobs.map(j=>{
+    let s=0;
+    (j.tags||[]).forEach(t=>{ if(skills.includes(t)) s+=10; });
+    if(skills.includes('none') && j.easy) s+=15;
+    const over = (j.budget||0) > budget;
+    if(over) s-=20;
+    return {...j, _s:s, _over:over};
+  }).sort((a,b)=>b._s-a._s);
+}
+/* 使える時間で7日間プランの分量を調整 */
+function adjustPlan(plan, hours){
+  const f = hours<=3 ? 0.5 : hours<=7 ? 1 : hours<=14 ? 1 : 1.3;
+  return plan.map(([task,min])=>[task, Math.max(15, Math.round(min*f/5)*5)]);
+}
+function planNote(hours){
+  if(hours<=3) return '週3時間以内とのことなので、1日あたりの分量を圧縮しています。7日で1周できない日があっても大丈夫、順番だけ守れば大丈夫です！';
+  if(hours>=20) return '週15時間以上取れるなら、Day1〜3を初日にまとめて前倒しできます。短期集中で回していきましょう！';
+  if(hours>=8) return '平日＋週末で回せるペースです。余裕がある日は次のDayを先取りしてもOK！';
+  return '1日30〜60分を想定した標準ペースです。';
+}
+
+/* ============================ 画面 ============================ */
+function render(){
+  app.className='wrap fade'; app.scrollTop=0; window.scrollTo(0,0);
+  // LP専用の追従CTAを毎回リセット
+  document.getElementById('sticky')?.remove();
+  document.body.classList.remove('hassticky');
+  window.onscroll=null;
+  if(S.step===-1) return renderLP();
+  if(S.step>=0 && S.step<12) return renderQ(S.step);
+  if(S.step===12) return renderMid();
+  if(S.step>=13 && S.step<=16) return renderCond(S.step-13);
+  if(S.step===98) return renderLoading();
+  if(S.step===99) return renderResult(S.result || diagnose());
+}
+
+function renderLP(){
+  const saved = load();
+  const answered = saved && saved.answers ? saved.answers.filter(x=>x!=null).length : 0;
+  const canResume = answered>0 && saved.step>0 && saved.step<99;
+
+  app.innerHTML=`
+  <div class="hero">
+    <span class="badge"><i></i>無料・登録なしの副業診断ツール</span>
+    <h1>「向いてる副業」より、<br><em>「明日やること」</em>が<br>わかる診断ツール。</h1>
+    <div class="name">副業タイプ診断<b>はじめの一歩</b></div>
+    <div class="pills">
+      <span class="pill">全16問・約3分</span>
+      <span class="pill">8タイプ判定</span>
+      <span class="pill">7日間プランつき</span>
+      <span class="pill">メアド入力なし</span>
+    </div>
+  </div>
+
+  <div class="card mock" aria-hidden="true">
+    <div class="mh"><span>Q5 / 16</span><span>あと11問</span></div>
+    <div class="mbar"><i></i></div>
+    <div class="mq">気づいたら時間が溶けているのは？</div>
+    <div class="mo">文章・画像・動画をいじっているとき</div>
+    <div class="mo on">人の相談に乗っているとき</div>
+    <div class="mo">情報を調べて、整理しているとき</div>
+  </div>
+  <p class="cap">▲ こんな4択を、タップしていくだけ</p>
+
+  <button class="btn" id="start">やってみる<span class="bs">約3分・登録もメアド入力もいりません</span></button>
+  ${canResume?`<button class="btn sub resume" id="resume">前回の続きから（${answered}問目まで回答済み）</button>`:''}
+
+  <h2 class="lph">3ステップでわかります</h2>
+  <div class="steps">
+    <div class="card step"><span class="sn">1</span><div>
+      <div class="st">16問の質問に答える</div>
+      <div class="sd">4つの選択肢からタップするだけ。約3分で終わります</div></div></div>
+    <div class="card step"><span class="sn">2</span><div>
+      <div class="st">8タイプのどれかに判定</div>
+      <div class="sd">3つの軸のスコアから、あなたの「稼ぎ方のクセ」を判定します</div></div></div>
+    <div class="card step hot"><span class="sn">3</span><div>
+      <div class="st">最初の7日間プランが出る</div>
+      <div class="sd">向いてる副業ベスト3と、Day1から何をするかまで出てきます</div></div></div>
+  </div>
+
+  <h2 class="lph">診断に使う3つの軸</h2>
+  <div class="card axmini">
+    <div class="axrow"><span>稼ぎ方</span><b>フロー型</b><i>⇄</i><b>ストック型</b></div>
+    <div class="axrow"><span>得意技</span><b>制作型</b><i>⇄</i><b>対人型</b></div>
+    <div class="axrow"><span>出し方</span><b>表に出る</b><i>⇄</i><b>裏方</b></div>
+  </div>
+  <p class="cap" style="margin-bottom:0">この組み合わせで、8タイプに分かれます</p>
+  <div class="tg">${'<div>?</div>'.repeat(8)}</div>
+  <p class="cap">あなたはどのタイプでしょう？</p>
+
+  <h2 class="lph">こんな人に向いています</h2>
+  <ul class="card lp-note" style="padding:4px 16px">
+    <li>情報は集めたけれど、何から始めるか決められない</li>
+    <li>一度やってみたけれど、続かなかった</li>
+    <li>使える時間が少ないので、合わないものは外したい</li>
+    <li>「向いてる副業」だけでなく、次の一手まで知りたい</li>
+  </ul>
+
+  <div style="margin-top:28px">
+    <button class="btn" id="start2">診断をはじめる →<span class="bs">全16問・約3分でおわります</span></button>
+  </div>
+
+  <p class="disc">この診断は、副業の方向性を考えるきっかけとしてご利用ください。回答データはサーバーに送信していません（お使いのブラウザ内にのみ保存されます）。</p>`;
+
+  const begin=()=>{ S={answers:[],cond:{},step:0}; save(); render(); };
+  document.getElementById('start').onclick=begin;
+  document.getElementById('start2').onclick=begin;
+  if(canResume) document.getElementById('resume').onclick=()=>{ S=saved; S.step=Math.min(S.step,16); render(); };
+
+  // 上部CTAを通り過ぎたら、追従CTAを出す
+  const sticky=document.createElement('div');
+  sticky.id='sticky'; sticky.className='sticky';
+  sticky.innerHTML=`<button class="btn">やってみる →</button>`;
+  sticky.querySelector('button').onclick=begin;
+  document.body.appendChild(sticky);
+  document.body.classList.add('hassticky');
+  const anchor=document.getElementById('start');
+  window.onscroll=()=>{
+    const past=anchor.getBoundingClientRect().bottom < 0;
+    const atEnd=(window.innerHeight+window.scrollY) > document.body.scrollHeight-160;
+    sticky.classList.toggle('on', past && !atEnd);
+  };
+}
+
+function renderQ(i){
+  const q=QUESTIONS[i], cur=S.answers[i];
+  app.innerHTML=`
+  <div class="qhead">
+    <button class="back" id="back" ${i===0?'disabled':''}>← 戻る</button>
+    <span>Q${i+1} / 16</span>
+  </div>
+  <div class="bar" role="progressbar" aria-valuenow="${i}" aria-valuemin="0" aria-valuemax="16"><i style="width:${i/16*100}%"></i></div>
+  <p class="qtext">${esc(q.text)}</p>
+  <div class="opts">
+    ${q.options.map((o,k)=>`<button class="opt${cur===k?' on':''}" data-k="${k}">${esc(o[0])}</button>`).join('')}
+  </div>`;
+  document.getElementById('back').onclick=()=>{ S.step--; render(); };
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    S.answers[i]=+b.dataset.k; save();
+    app.querySelectorAll('.opt').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    setTimeout(()=>{ S.step++; save(); render(); },200);
+  });
+}
+
+function renderMid(){
+  app.innerHTML=`
+  <div class="mid">
+    <h2>あと4問！</h2>
+    <p>結果をあなた用に調整します。<br>ここからは「どのタイプか」ではなく<br>「どう進めるか」を決める質問です。</p>
+    <button class="btn" id="go">続ける →</button>
+    <button class="btn sub resume" id="back">← 前の質問に戻る</button>
+  </div>`;
+  document.getElementById('go').onclick=()=>{ S.step=13; save(); render(); };
+  document.getElementById('back').onclick=()=>{ S.step=11; render(); };
+}
+
+function renderCond(i){
+  const c=CONDITIONS[i];
+  const cur=S.cond[c.key];
+  const isOn=v=> c.multi ? (cur||[]).includes(v) : cur===v;
+  app.innerHTML=`
+  <div class="qhead">
+    <button class="back" id="back">← 戻る</button>
+    <span>Q${13+i} / 16</span>
+  </div>
+  <div class="bar"><i style="width:${(12+i)/16*100}%"></i></div>
+  <p class="qtext">${esc(c.text)}</p>
+  <div class="opts">
+    ${c.options.map((o,k)=>`<button class="opt${c.multi?' multi':''}${isOn(o[1])?' on':''}" data-k="${k}">${esc(o[0])}</button>`).join('')}
+  </div>
+  ${c.multi?`<div class="acts"><button class="btn" id="next">結果を見る →</button></div>`:''}`;
+
+  document.getElementById('back').onclick=()=>{ S.step = i===0 ? 12 : S.step-1; render(); };
+
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    const v=c.options[+b.dataset.k][1];
+    if(c.multi){
+      let arr=S.cond[c.key]||[];
+      if(v==='none') arr = arr.includes('none') ? [] : ['none'];
+      else arr = arr.includes(v) ? arr.filter(x=>x!==v) : [...arr.filter(x=>x!=='none'), v];
+      S.cond[c.key]=arr; save();
+      b.classList.toggle('on');
+      if(v==='none' || arr.includes('none')) renderCond(i);
+    }else{
+      S.cond[c.key]=v; save();
+      app.querySelectorAll('.opt').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      setTimeout(()=>{ S.step++; save(); if(S.step>16){ S.step=98; render(); } else render(); },200);
+    }
+  });
+  if(c.multi) document.getElementById('next').onclick=()=>{ S.step=98; save(); render(); };
+}
+
+function renderLoading(){
+  const msgs=['回答を分析しています…','3つの軸でスコアを計算中…','あなた用のプランを組み立て中…'];
+  app.innerHTML=`<div class="loading"><div class="spin"></div><span id="lmsg">${msgs[0]}</span></div>`;
+  let n=0;
+  const iv=setInterval(()=>{ n++; const el=document.getElementById('lmsg'); if(el) el.textContent=msgs[Math.min(n,2)]; },500);
+  setTimeout(()=>{ clearInterval(iv); S.result=diagnose(); S.step=99; save(); render(); },1500);
+}
+
+function renderResult(R){
+  const T=TYPES[R.code], A=TYPES[R.altCode];
+  const cond=S.cond, hours=cond.hours??7;
+  const jobs=rankJobs(T.jobs,cond), plan=adjustPlan(T.plan,hours);
+  const doneKey='fs_plan_'+R.code;
+  let done={}; try{ done=JSON.parse(localStorage.getItem(doneKey)||'{}'); }catch(e){}
+
+  const axisHTML=R.axes.map((v,i)=>{
+    const d=AXES[i], abs=Math.abs(v);
+    const label = abs<=2 ? 'どちらもいけそう（半々）'
+                : (abs>=6?'はっきり':'どちらかといえば') + (v>=0?d.pos:d.neg);
+    return `<div class="card axis">
+      <div class="top"><span><b>${d.name}</b></span><span>${esc(d.pos)} ⇄ ${esc(d.neg)}</span></div>
+      <div class="track"><i style="left:${(8-v)/16*100}%"></i></div>
+      <div class="val">${esc(label)}${abs<=2?'<span class="tight">半々</span>':''}</div>
+    </div>`;
+  }).join('');
+
+  const jobHTML=jobs.map((j,i)=>`
+    <div class="card job">
+      <div class="t"><i>${i+1}</i><span>${esc(j.t)}</span></div>
+      <dl>
+        <dt>初収益の目安</dt><dd>${esc(j.first)}</dd>
+        <dt>単価感</dt><dd>${esc(j.price)}</dd>
+        <dt>必要なもの</dt><dd>${esc(j.need)}</dd>
+      </dl>
+      <div class="ai"><b>AIを足すと効くところ</b>：${esc(j.ai)}</div>
+      ${j._over?`<div class="warn">※ 初期費用がかかるため、今回の予算では後回しでもOKです</div>`:''}
+    </div>`).join('');
+
+  const planHTML=plan.map(([task,min],i)=>`
+    <label class="day${done[i]?' done':''}" data-i="${i}">
+      <input type="checkbox" ${done[i]?'checked':''}>
+      <span class="n">Day ${i+1}</span>
+      <span class="b">${esc(task)}<span class="m">目安 ${min}分</span></span>
+    </label>`).join('');
+
+  app.innerHTML=`
+  <div class="rhead">
+    <div class="lead">あなたのタイプは</div>
+    <div class="tname"><span>${T.no}</span> ${esc(T.name)}</div>
+    <div class="tcatch">「${esc(T.catch)}」</div>
+  </div>
+
+  <section><h2 class="sec">あなたの3軸</h2>${axisHTML}
+    ${R.tight?`<p class="disc" style="border:none;padding-top:8px;margin-top:2px">「${AXES[R.weakAxis].name}」は半々でした。下の「もう一つの選択肢」も、あわせて見てみてください！</p>`:''}
+  </section>
+
+  <section><h2 class="sec">こんなあなたです</h2>
+    <div class="card about">${T.about.map(p=>`<p>${esc(p)}</p>`).join('')}</div>
+  </section>
+
+  <section><h2 class="sec">向いてる副業 ベスト3</h2>
+    ${jobHTML}
+    <p class="disc" style="border:none;padding-top:4px">${esc(GOAL_MSG[cond.goal||'unknown'])}</p>
+  </section>
+
+  <section><h2 class="sec hot">★ 最初の7日間プラン</h2>
+    <div class="card plan">${planHTML}</div>
+    <div class="goal">7日目のゴール：<span>${esc(T.goal)}</span></div>
+    <p class="disc" style="border:none;padding-top:8px">${esc(planNote(hours))}</p>
+  </section>
+
+  <section><h2 class="sec">つまずきやすいポイント</h2>
+    <ul class="card tips">${T.pitfalls.map(([a,b])=>`<li><b>${esc(a)}</b><em>${esc(b)}</em></li>`).join('')}</ul>
+  </section>
+
+  <section><h2 class="sec">相性が出にくいもの</h2>
+    <ul class="card tips no">${T.avoid.map(([a,b])=>`<li><b>${esc(a)}</b><em>${esc(b)}</em></li>`).join('')}</ul>
+  </section>
+
+  <section><h2 class="sec">もう一つの選択肢</h2>
+    <div class="card alt">
+      <div class="k">迷いが出た軸を反転させると</div>
+      <div class="v">${A.no} ${esc(A.name)}</div>
+      <div class="d">「${esc(A.catch)}」</div>
+    </div>
+  </section>
+
+  <div class="acts">
+    <button class="btn" id="share">𝕏 でシェアする</button>
+    <button class="btn sub" id="copy">結果のURLをコピー</button>
+    <button class="btn sub" id="print">7日間プランを印刷する</button>
+    <button class="btn sub" id="again">もう一度やる</button>
+  </div>
+
+  <p class="disc">
+    ※ 記載している金額・期間はあくまで<b>目安</b>であり、成果を保証するものではありません。実際の収入は市場環境・作業量・スキルなどによって大きく変わります。<br>
+    ※ お勤めの方は、勤務先の就業規則をご確認のうえでお進みください。<br>
+    ※ 回答データはサーバーに送信していません。
+  </p>`;
+
+  // 7日間プランのチェック状態を保存
+  app.querySelectorAll('.day input').forEach(inp=>inp.onchange=e=>{
+    const el=e.target.closest('.day'); done[el.dataset.i]=e.target.checked;
+    el.classList.toggle('done',e.target.checked);
+    try{ localStorage.setItem(doneKey,JSON.stringify(done)); }catch(err){}
+  });
+
+  const url = buildURL(R);
+  document.getElementById('share').onclick=()=>{
+    const text=`私は「${T.name}」でした！\n向いてる副業と、最初の7日間プランまで出てきた。\n登録なしで3分。\n#副業タイプ診断`;
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,'_blank','noopener');
+  };
+  document.getElementById('copy').onclick=async()=>{
+    try{ await navigator.clipboard.writeText(url); toast('URLをコピーしました！'); }
+    catch(e){ toast('コピーできませんでした'); }
+  };
+  document.getElementById('print').onclick=()=>window.print();
+  document.getElementById('again').onclick=()=>{
+    localStorage.removeItem(KEY); S={answers:[],cond:{},step:-1};
+    history.replaceState(null,'',location.pathname); render();
+  };
+}
+
+/* ============================ URL共有 ============================ */
+function buildURL(R){
+  const p=new URLSearchParams();
+  p.set('t',R.code); p.set('a',R.axes.join('.'));
+  if(S.cond.hours!=null) p.set('h',S.cond.hours);
+  if(S.cond.goal) p.set('g',S.cond.goal);
+  if(S.cond.budget!=null) p.set('b',S.cond.budget);
+  if((S.cond.skills||[]).length) p.set('s',S.cond.skills.join('.'));
+  return location.origin+location.pathname+'?'+p.toString();
+}
+function fromURL(){
+  const p=new URLSearchParams(location.search);
+  const t=p.get('t'), a=(p.get('a')||'').split('.').map(Number);
+  if(!t || !TYPES[t] || a.length!==3 || a.some(n=>!Number.isFinite(n)||Math.abs(n)>8)) return false;
+  S={answers:[],cond:{
+      hours: p.get('h')!=null ? +p.get('h') : 7,
+      goal:  p.get('g') || 'unknown',
+      budget:p.get('b')!=null ? +p.get('b') : 100000,
+      skills:(p.get('s')||'').split('.').filter(Boolean),
+    },step:99};
+  const R=finalize(a);
+  S.result = (R.code===t) ? R : {...R, code:t};   // 念のためコードを優先
+  return true;
+}
+
+/* ============================ 起動 ============================ */
+if(!fromURL()){
+  const saved=load();
+  if(saved && saved.step===99 && saved.result) S=saved;   // 結果まで終わっていれば復元
+}
+render();
+</script>
+</body>
+</html>
